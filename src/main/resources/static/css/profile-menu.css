@@ -1,0 +1,96 @@
+.home-section {
+    display: flex;
+    justify-content: center;
+}
+
+.profile-menu {
+    position: relative;
+    width: 50%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.profile-header {
+    margin-bottom: 14px;
+}
+
+.single-section-box.profile-menu::before,
+.single-section-box.profile-menu::after {
+    content: '';
+    position: absolute;
+    border-radius: 90%;
+    opacity: 0.7;
+    filter: blur(40px);
+    z-index: 1;
+}
+
+.single-section-box.profile-menu::before {
+    width: 350px;
+    height: 190px;
+    background: radial-gradient(circle, #ff60d745, #679fff);
+    top: -90px;
+    left: -100px;
+}
+
+.single-section-box.profile-menu::after {
+    width: 400px;
+    height: 130px;
+    background: radial-gradient(circle, rgb(135 102 255 / 47%), #ff676780);
+    bottom: -40px;
+    right: -180px;
+}
+
+form {
+    height: 100%;
+    width: 100%;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 2px;
+    margin-top: 16px;
+    align-items: center;
+}
+
+form button {
+    margin-top: 26px;
+}
+
+form * {
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+
+label {
+    display: block;
+    margin-top: 16px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+input, select {
+    display: block;
+    height: 45px;
+    width: 60%;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 6px;
+    padding: 0 12px;
+    margin-top: 6px;
+    font-size: 14px;
+    font-weight: 300;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus, select:focus {
+    background: radial-gradient(circle at 90% top, rgba(36, 36, 77, 0.1), rgba(26, 26, 65, 0.1), rgba(16, 16, 53, 0.1));
+    box-shadow: 0 0 4px rgba(36, 36, 77, 0.6);
+}
+
+select {
+    width: 100%;
+}

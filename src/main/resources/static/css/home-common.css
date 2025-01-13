@@ -1,0 +1,92 @@
+body {
+  background: radial-gradient(circle at 90% top,
+  #2b2a57 0%,
+  #27264e 10%,
+  #222246 20%,
+  #1e1d3d 30%,
+  #1a1934 40%,
+  #16152c 50%,
+  #111123 60%,
+  #0d0d1a 70%,
+  #090811 80%,
+  #040409 90%,
+  #000000 100%);
+  width: 100%;
+  border-radius: 6px;}
+
+body main {
+  margin: 20px 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.footer {
+  color: #e5e5e5;
+}
+
+.home-section {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-column-gap: 26px;
+  grid-row-gap: 26px;
+  grid-template-columns: repeat(2, 50%);
+  color: #333333;
+  margin-right: 2%;
+}
+
+div.single-section-box {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0);
+  border: 1px solid transparent;
+  color: #333333;
+  text-align: center;
+  min-width: 300px;
+}
+
+.profile-status-role-container {
+  display: flex;
+  padding: 5px 10px;
+  justify-content: center;
+  gap: 20px;
+  text-transform: uppercase;
+}
+
+.profile-status-role-container .active-profile {
+  backdrop-filter: blur(8px);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  background-color: #e0f7e9;
+  color: #2e7d32;
+  border: 1px solid rgba(84, 227, 54, 0.6);
+  box-shadow: 0 4px 8px rgba(0, 153, 51, 0.15);
+}
+
+.profile-status-role-container .inactive-profile {
+  background-color: #fbe9e7;
+  color: #c62828;  letter-spacing: 0.03em;
+  border: 1px solid rgba(255, 103, 103, 0.6);
+  box-shadow: 0 4px 8px rgba(255, 103, 103, 0.2);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.hover-colorful-button:hover {
+  background: radial-gradient(circle at 90% top, #746ab0 0%, #6a61a4 10%, #605899 20%, #56508d 30%, #4c477f 40%, #423f73 50%, #383666 60%, #2e2d5a 70%, #24244d 80%, #1a1a41 90%, #101035 100%);
+  color: white;
+  border-radius: 5px;
+  border: none;
+  font-weight: 300;
+  transition: background 0.9s ease-in-out;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}

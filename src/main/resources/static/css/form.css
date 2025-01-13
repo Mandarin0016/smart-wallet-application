@@ -1,0 +1,137 @@
+.section {
+  padding: 50px 0;
+}
+
+.section.full-height {
+  display: flex;
+  flex-direction: column;
+}
+
+.section.full-height .container {
+  display: flex;
+  flex-direction: column;
+}
+
+.section.full-height .container .logo {
+  margin: auto 0;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 36px auto;
+  padding: 0 16px;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+form {
+  height: auto;
+  width: 400px;
+  background-color: rgba(100, 91, 240, 0.11);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 40px rgba(8, 7, 16, 0.31);
+  padding: 36px 35px;
+  align-self: center;
+}
+
+form * {
+  font-family: 'Poppins', sans-serif;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  outline: none;
+  border: none;
+}
+
+form h3 {
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 42px;
+  text-align: center;
+  margin: auto;
+}
+
+label {
+  display: block;
+  margin-top: 30px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+input, select {
+  display: block;
+  height: 50px;
+  width: 95%;
+  background-color: rgba(255, 255, 255, 0.07);
+  border-radius: 3px;
+  padding: 0 10px;
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+select {
+  width: 100%;
+}
+
+option {
+  background-color: #001F40FF;
+}
+
+::placeholder {
+  color: #e5e5e5;
+}
+
+button {
+  margin-top: 50px;
+  width: 100%;
+  background: radial-gradient(
+      circle at 90% top,
+      #d2c8f4 0%, /* Light lavender */ #c4bbeb 10%, /* Softer purple */ #b7aee2 20%, /* Muted purple */ #aaa1d9 30%, /* Gentle lavender */ #9d94d0 40%, /* Subtle lilac */ #9087c8 50%, /* Balanced light purple */ #837bbc 60%, /* Light grayish purple */ #766fb0 70%, /* Soft indigo */ #6963a4 80%, /* Muted navy */ #5c5798 90%, /* Deep lavender */ #4f4c8c 100% /* Rich lavender */
+  );
+  color: #ffffff;
+  padding: 15px 0;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  box-shadow: inset 0 1px 9px rgba(255, 255, 255, 0.5); /* Inset shadow with transparency */
+}
+
+input, select {
+  transition: all .2s;
+}
+
+input:hover, select:hover {
+  box-shadow: 0 1px 12px rgba(255, 255, 255, 0.5); /* Inset shadow with transparency */
+}
+
+.form-already {
+  color: #e5e5e5;
+  font-weight: 300;
+  text-align: center;
+  font-size: 12px;
+  margin: 20px auto auto;
+}
+
+.form-already a {
+  text-decoration: none;
+  transition: 0.5s ease-out;
+  background: radial-gradient(circle at 90% top, #746ab0 0%, #a095e6 10%, #faf9f9 20%, #c5bfff 30%, #978ef1 40%, #7871f6 50%, #817cff 60%, #8eafe9 70%, #a1a1ff 80%, #a8a8ff 90%, #6d78f3 100%);
+  background-size: 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.form-already a:hover {
+  background-position: right;
+  transition: 0.5s ease-out;
+}

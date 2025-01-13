@@ -1,0 +1,120 @@
+.home-section {
+    display: flex;
+    justify-content: center;
+    gap: 4%;
+}
+
+.home-section * {
+    font-family: 'Poppins', sans-serif;
+}
+
+.transfer-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.single-section-box.transfer-container {
+    min-width: 800px;
+}
+
+.single-section-box.transfer-container::before,
+.single-section-box.transfer-container::after {
+    content: '';
+    position: absolute;
+    border-radius: 90%;
+    opacity: 0.7;
+    filter: blur(40px);
+    z-index: 1;
+}
+
+.single-section-box.transfer-container::before {
+    width: 350px;
+    height: 190px;
+    background: radial-gradient(circle, #ff60d745, #679fff);
+    top: -90px;
+    left: -100px;
+}
+
+.single-section-box.transfer-container::after {
+    width: 400px;
+    height: 130px;
+    background: radial-gradient(circle, rgb(135 102 255 / 47%), #ff676780);
+    bottom: -40px;
+    right: -180px;
+}
+
+.transfer-section {
+    background: #ffffff;
+    padding: 26px 38px;
+    width: 60%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.transfer-section h2 {
+    text-align: center;
+}
+
+form {
+    height: 100%;
+    width: 100%;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 2px;
+    margin-top: 16px;
+    align-items: center;
+}
+
+form button {
+    margin-top: 26px;
+}
+
+form * {
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+
+label {
+    display: block;
+    margin-top: 16px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.transfer-section input, select {
+    display: block;
+    height: 45px;
+    width: 320px;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 6px;
+    padding: 0 12px;
+    margin-top: 6px;
+    font-size: 14px;
+    font-weight: 300;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus, select:focus {
+    background: radial-gradient(circle at 90% top, rgba(36, 36, 77, 0.1), rgba(26, 26, 65, 0.1), rgba(16, 16, 53, 0.1));
+    box-shadow: 0 0 4px rgba(36, 36, 77, 0.6);
+}
+
+select {
+    width: 344px;
+}
+
+.profile-actions-button {
+    margin-top: 40px;
+}
+
+

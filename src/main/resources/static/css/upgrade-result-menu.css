@@ -1,0 +1,119 @@
+.payment-box {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+    padding-inline: 20px 30px;
+    color: #333;
+}
+
+.payment-result-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.single-section-box.payment-result-container {
+    min-width: 800px;
+}
+
+.single-section-box.payment-result-container::before,
+.single-section-box.payment-result-container::after {
+    content: '';
+    position: absolute;
+    border-radius: 90%;
+    opacity: 0.7;
+    filter: blur(40px);
+    z-index: 1;
+}
+
+.single-section-box.payment-result-container::before {
+    width: 350px;
+    height: 190px;
+    background: radial-gradient(circle, #ff60d745, #679fff);
+    top: -90px;
+    left: -100px;
+}
+
+.single-section-box.payment-result-container::after {
+    width: 400px;
+    height: 130px;
+    background: radial-gradient(circle, rgb(135 102 255 / 47%), #ff676780);
+    bottom: -40px;
+    right: -180px;
+}
+
+.payment-box .payment-header {
+    margin-bottom: 20px;
+}
+
+.payment-box .payment-header .icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.payment-box.success .payment-header .icon {
+    background-color: rgba(69, 224, 76, 0.8);
+    border: 1px solid rgba(75, 239, 82, 0.8);
+    box-shadow: 0 4px 8px rgba(94, 255, 100, 0.4);
+}
+
+.payment-box.failure .payment-header .icon {
+    background-color: #ff6767;
+    border: 1px solid rgba(255, 84, 84, 0.8);
+    box-shadow: 0 4px 8px rgba(255, 103, 103, 0.4);
+}
+
+.payment-box .payment-header .icon svg {
+    width: 40px;
+    height: 40px;
+    stroke: white;
+}
+
+.payment-box .payment-header h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 0 0 10px;
+}
+
+.payment-box .payment-header p {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.payment-box .payment-details {
+    background: #f4f4f4;
+    padding: 15px;
+    width: 80%;
+    justify-self: center;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.payment-box .details {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.payment-box .details .item {
+    font-size: 14px;
+    color: #555;
+}
+
+.payment-box .details .value {
+    font-size: 12px;
+    color: #333;
+}
+
+.details-section {
+    margin-bottom: 20px;
+}
