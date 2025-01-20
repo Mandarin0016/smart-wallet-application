@@ -111,37 +111,17 @@
         </tr>
         </thead>
         <tbody>
-
-        <tr>
-          <td>0afa0750-1e2a-43fa-8c93-092fda6e3a80</td>
+        <tr th:each="transaction : ${transactions}">
+          <td th:text="${transaction.id}"></td>
           <td>
-            <p class="status active">SUCCEEDED</p>
+            <p th:if="${transaction.status.name() == 'FAILED'}" class="status terminated">FAILED</p>
+            <p th:if="${transaction.status.name() == 'SUCCEEDED'}" class="status active">SUCCEEDED</p>
           </td>
-          <td>-2.04 EUR</td>
-          <td>16.03 EUR</td>
-          <td style="text-align: left">2.00 EUR from ivan123</td>
-          <td>30 Dec 2024 17:03</td>
-        </tr>
-        <tr>
-          <td>0642dd9b-bd24-48c6-b874-87d02be410ec</td>
-          <td>
-            <p class="status terminated">FAILED</p>
-          </td>
-          <td class="crosslined">-1.03 EUR</td>
-          <td>18.07 EUR</td>
-          <td style="text-align: left">Unable to perform transfer due to criteria not met</td>
-          <td>30 Dec 2024 17:01</td>
-        </tr>
-
-        <tr>
-          <td>28683c0f-1c9f-4636-a819-ab9d485abf52</td>
-          <td>
-            <p class="status active">SUCCEEDED</p>
-          </td>
-          <td>+1.00 EUR</td>
-          <td>76.00 EUR</td>
-          <td style="text-align: left">1.00 EUR from mandarin1</td>
-          <td>12 Dec 2024 15:07</td>
+          <td th:if="${transaction.status.name() == 'FAILED'}" th:text="${transaction.type.name() == 'DEPOSIT' ? '+' + transaction.amount + ' EUR' : '-' + transaction.amount + ' EUR'}" class="crosslined"></td>
+          <td th:if="${transaction.status.name() == 'SUCCEEDED'}" th:text="${transaction.type.name() == 'DEPOSIT' ? '+' + transaction.amount + ' EUR' : '-' + transaction.amount  + ' EUR'}"></td>
+          <td th:text="${transaction.balanceLeft + ' EUR'}"></td>
+          <td style="text-align: left" th:text="${transaction.status.name() == 'FAILED' ? transaction.failureReason : transaction.description}"></td>
+          <td th:text="${#temporals.format(transaction.createdOn, 'dd MMM YYYY HH:mm')}"></td>
         </tr>
         </tbody>
       </table>

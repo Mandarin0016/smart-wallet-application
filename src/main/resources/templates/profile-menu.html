@@ -98,18 +98,18 @@
   <div class="home-section">
     <div class="single-section-box profile-menu">
       <div class="profile-header">
-        <img src="https://avatars.githubusercontent.com/u/122465228?v=4" alt="Profile Picture" class="profile-avatar">
-        <h2 class="profile-name">Mandarin0016</h2>
+        <img th:src="${#strings.isEmpty(user.profilePicture) ? 'https://icons.veryicon.com/png/o/miscellaneous/user-avatar/user-avatar-male-5.png' : user.profilePicture}" alt="Profile Picture" class="profile-avatar">
+        <h2 th:text="${user.username}" class="profile-name"></h2>
       </div>
 
       <div class="details-section">
         <div class="details-section-container">
           <strong>User id: </strong>
-          <p>55b23a12-71a1-4ccd-918d-08b2b09409b0</p>
+          <p th:text="${user.id}"></p>
         </div>
         <div class="details-section-container">
           <strong>Last profile update: </strong>
-          <p>19 Dec 2024 19:51</p>
+          <p th:text="${user.updatedOn}"></p>
         </div>
       </div>
 

@@ -10,7 +10,7 @@
   <link rel="stylesheet" type="text/css" href="/css/home-common.css">
   <link rel="stylesheet" type="text/css" href="/css/home.css">
   <link rel="stylesheet" type="text/css" href="/css/subscription-history.css">
-  <title>Transactions</title>
+  <title>Subscriptions</title>
 </head>
 <body>
 <nav>
@@ -111,44 +111,20 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <td>126af97e-46af-4596-900e-1609c4769c90</td>
+        <tr th:each="subscription : ${user.subscriptions}">
+          <td th:text="${subscription.id}"></td>
           <td>
-            <p>DEFAULT</p>
+            <p th:text="${subscription.type}"></p>
           </td>
           <td>
-            <p class="status active">ACTIVE</p>
+            <p th:if="${subscription.status.name() == 'ACTIVE'}" class="status active">ACTIVE</p>
+            <p th:if="${subscription.status.name() == 'COMPLETED'}" class="status completed">COMPLETED</p>
+            <p th:if="${subscription.status.name() == 'TERMINATED'}" class="status terminated">TERMINATED</p>
           </td>
-          <td>MONTHLY</td>
-          <td>49.99</td>
-          <td>11 Dec 2024</td>
-          <td>11 Jan 2025</td>
-        </tr>
-        <tr>
-          <td>e250f7f4-ea34-45fe-8e3e-86d748bec272</td>
-          <td>
-            <p>PREMIUM</p>
-          </td>
-          <td>
-            <p class="status terminated">TERMINATED</p>
-          </td>
-          <td>MONTHLY</td>
-          <td>19.99</td>
-          <td>11 Dec 2024</td>
-          <td>11 Dec 2024</td>
-        </tr>
-        <tr>
-          <td>c831b538-ceff-4978-a59f-c76a18d44db3</td>
-          <td>
-            <p>DEFAULT</p>
-          </td>
-          <td>
-            <p class="status completed">COMPLETED</p>
-          </td>
-          <td>MONTHLY</td>
-          <td>0.00</td>
-          <td>09 Dec 2024</td>
-          <td>11 Dec 2024</td>
+          <td th:text="${subscription.period}"></td>
+          <td th:text="${subscription.price + ' EUR'}"></td>
+          <td th:text="${#temporals.format(subscription.createdOn, 'dd MMM YYYY HH:mm')}"></td>
+          <td th:text="${#temporals.format(subscription.completedOn, 'dd MMM YYYY HH:mm')}"></td>
         </tr>
         </tbody>
       </table>
