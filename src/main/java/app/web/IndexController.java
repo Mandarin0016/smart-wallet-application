@@ -2,9 +2,13 @@ package app.web;
 
 import app.user.model.User;
 import app.user.service.UserService;
+import app.web.dto.RegisterRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.UUID;
@@ -32,15 +36,32 @@ public class IndexController {
     }
 
     @GetMapping("/register")
-    public String getRegisterPage() {
+    public ModelAndView getRegisterPage() {
 
-        return "register";
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("register");
+        modelAndView.addObject("registerRequest", new RegisterRequest());
+
+        return modelAndView;
+    }
+
+    @PostMapping("/register")
+    public ModelAndView registerNewUser(@Valid RegisterRequest registerRequest, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("register");
+        }
+
+
+        userService.register(registerRequest);
+
+        return new ModelAndView("redirect:/home");
     }
 
     @GetMapping("/home")
     public ModelAndView getHomePage() {
 
-        User user = userService.getById(UUID.fromString("ab0b5242-6b5c-4d76-8c9f-124be662b2d9"));
+        User user = userService.getById(UUID.fromString("60069504-cd0a-45f0-b6fb-3d43d2d93b8c"));
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("home");

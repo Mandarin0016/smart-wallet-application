@@ -23,21 +23,24 @@
       </a>
     </div>
 
-    <form class="form" action="/register" method="post">
+    <form class="form" th:action="@{/register}" th:method="POST" th:object="${registerRequest}">
+    <!--th:action="@{/register}"   до къде да се изпрати заявката-->
+    <!--th:method="POST"  тип на заявката-->
+    <!--th:object="${registerRequest}"  обект, който ще се попълни от тази форма-->
 
       <h3>Register Here</h3>
 
       <label for="username">Username</label>
-      <input type="text" placeholder="Username" id="username">
+      <input type="text" placeholder="Username" id="username" th:field="*{username}" required>
+      <p class="alert-warning" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
 
       <label for="password">Password</label>
-      <input type="password" placeholder="Password" id="password">
+      <input type="password" placeholder="Password" id="password" th:field="*{password}" required>
+      <p class="alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
 
       <label for="country">Country</label>
-      <select id="country">
-        <option value="BULGARIA">BULGARIA</option>
-        <option value="GERMANY">GERMANY</option>
-        <option value="FRANCE">FRANCE</option>
+      <select name="country" id="country" th:field="*{country}">
+        <option th:each="country : ${T(app.user.model.Country).values()}" th:value="${country}" th:text="${#strings.capitalize(#strings.toLowerCase(country))}"></option>
       </select>
 
       <button>Register</button>
@@ -46,6 +49,6 @@
 
   </section>
 </main>
-<div class="footer"><p>© 2025 Smart Wallet. All rights reserved.</p></div>
+<th:block th:insert="fragments/footer :: footer"></th:block>
 </body>
 </html>
