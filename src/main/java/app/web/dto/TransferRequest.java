@@ -1,5 +1,6 @@
 package app.web.dto;
 
+import app.validation.WalletOwner;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Builder;
@@ -10,6 +11,7 @@ import java.util.UUID;
 
 @Data
 @Builder
+@WalletOwner
 public class TransferRequest {
 
     @NotNull
