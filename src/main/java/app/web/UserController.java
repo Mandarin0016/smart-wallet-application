@@ -1,5 +1,6 @@
 package app.web;
 
+import app.security.RequireAdminRole;
 import app.user.model.User;
 import app.user.service.UserService;
 import app.web.dto.UserEditRequest;
@@ -8,12 +9,10 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -25,6 +24,19 @@ public class UserController {
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+    @RequireAdminRole
+    @GetMapping
+    public ModelAndView getAllUsers() {
+
+        List<User> users = userService.getAllUsers();
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("users");
+        modelAndView.addObject("users", users);
+
+        return modelAndView;
     }
 
     // Endpoint:  '/users/{placeholder}/profile'- unique (just single in my app)
@@ -56,5 +68,21 @@ public class UserController {
         userService.editUserDetails(id, userEditRequest);
 
         return new ModelAndView("redirect:/home");
+    }
+
+    @PutMapping("/{id}/status") // PUT /users/{id}/status
+    public String switchUserStatus(@PathVariable UUID id) {
+
+        userService.switchStatus(id);
+
+        return "redirect:/users";
+    }
+
+    @PutMapping("/{id}/role") // PUT /users/{id}/role
+    public String switchUserRole(@PathVariable UUID id) {
+
+        userService.switchRole(id);
+
+        return "redirect:/users";
     }
 }

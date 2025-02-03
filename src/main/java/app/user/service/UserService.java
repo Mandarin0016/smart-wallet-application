@@ -113,4 +113,34 @@ public class UserService {
 
         return userRepository.findById(id).orElseThrow(() -> new DomainException("User with id [%s] does not exist.".formatted(id)));
     }
+
+    public void switchStatus(UUID userId) {
+
+        User user = getById(userId);
+
+        // НАЧИН 1:
+//        if (user.isActive()){
+//            user.setActive(false);
+//        } else {
+//            user.setActive(true);
+//        }
+
+        // false -> true
+        // true -> false
+        user.setActive(!user.isActive());
+        userRepository.save(user);
+    }
+
+    public void switchRole(UUID userId) {
+
+        User user = getById(userId);
+
+        if (user.getRole() == UserRole.USER) {
+            user.setRole(UserRole.ADMIN);
+        } else {
+            user.setRole(UserRole.USER);
+        }
+
+        userRepository.save(user);
+    }
 }

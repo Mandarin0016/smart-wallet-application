@@ -4,15 +4,11 @@ import app.user.model.User;
 import app.user.service.UserService;
 import app.web.dto.LoginRequest;
 import app.web.dto.RegisterRequest;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -78,7 +74,7 @@ public class IndexController {
 
         userService.register(registerRequest);
 
-        return new ModelAndView("redirect:/home");
+        return new ModelAndView("redirect:/login");
     }
 
     @GetMapping("/home")

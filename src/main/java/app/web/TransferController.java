@@ -5,6 +5,7 @@ import app.user.model.User;
 import app.user.service.UserService;
 import app.wallet.service.WalletService;
 import app.web.dto.TransferRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,9 +32,10 @@ public class TransferController {
     }
 
     @GetMapping
-    public ModelAndView getTransferPage() {
+    public ModelAndView getTransferPage(HttpSession session) {
 
-        User user = userService.getById(UUID.fromString("0a9b6944-9702-424e-b7c7-c8e82a1b5f3f"));
+        UUID userId = (UUID) session.getAttribute("user_id");
+        User user = userService.getById(userId);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("transfer");
@@ -44,9 +46,10 @@ public class TransferController {
     }
 
     @PostMapping
-    public ModelAndView initiateTransfer(@Valid TransferRequest transferRequest, BindingResult bindingResult) {
+    public ModelAndView initiateTransfer(@Valid TransferRequest transferRequest, BindingResult bindingResult, HttpSession session) {
 
-        User user = userService.getById(UUID.fromString("0a9b6944-9702-424e-b7c7-c8e82a1b5f3f"));
+        UUID userId = (UUID) session.getAttribute("user_id");
+        User user = userService.getById(userId);
 
         if (bindingResult.hasErrors()) {
             ModelAndView modelAndView = new ModelAndView();
