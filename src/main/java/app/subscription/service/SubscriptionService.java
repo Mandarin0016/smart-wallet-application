@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -123,5 +124,26 @@ public class SubscriptionService {
         } else {
             return new BigDecimal("499.99");
         }
+    }
+
+    public List<Subscription> getAllSubscriptionsReadyForRenewal() {
+
+        return subscriptionRepository.findAllByStatusAndCompletedOnLessThanEqual(SubscriptionStatus.ACTIVE, LocalDateTime.now());
+    }
+
+    public void markSubscriptionAsCompleted(Subscription subscription) {
+
+        subscription.setStatus(SubscriptionStatus.COMPLETED);
+        subscription.setCompletedOn(LocalDateTime.now());
+
+        subscriptionRepository.save(subscription);
+    }
+
+    public void markSubscriptionAsTerminated(Subscription subscription) {
+
+        subscription.setStatus(SubscriptionStatus.TERMINATED);
+        subscription.setCompletedOn(LocalDateTime.now());
+
+        subscriptionRepository.save(subscription);
     }
 }
