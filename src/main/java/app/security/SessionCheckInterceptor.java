@@ -60,21 +60,21 @@ public class SessionCheckInterceptor implements HandlerInterceptor {
         }
 
         // НАЧИН 1:
-//        if (ADMIN_ENDPOINTS.contains(endpoint) && user.getRole() != UserRole.ADMIN) {
-//
-//            response.setStatus(HttpStatus.FORBIDDEN.value());
-//            response.getWriter().write("Access denied, you don't have the necessary permissions!");
-//            return false;
-//        }
-
-        // НАЧИН 2:
-        HandlerMethod handlerMethod = (HandlerMethod) handler;
-        if (handlerMethod.hasMethodAnnotation(RequireAdminRole.class) && user.getRole() != UserRole.ADMIN) {
+        if (ADMIN_ENDPOINTS.contains(endpoint) && user.getRole() != UserRole.ADMIN) {
 
             response.setStatus(HttpStatus.FORBIDDEN.value());
             response.getWriter().write("Access denied, you don't have the necessary permissions!");
             return false;
         }
+
+        // НАЧИН 2:
+//        HandlerMethod handlerMethod = (HandlerMethod) handler;
+//        if (handlerMethod.hasMethodAnnotation(RequireAdminRole.class) && user.getRole() != UserRole.ADMIN) {
+//
+//            response.setStatus(HttpStatus.FORBIDDEN.value());
+//            response.getWriter().write("Access denied, you don't have the necessary permissions!");
+//            return false;
+//        }
 
         return true;
     }
