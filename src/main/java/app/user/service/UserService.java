@@ -1,6 +1,7 @@
 package app.user.service;
 
 import app.exception.DomainException;
+import app.security.AuthenticationMetadata;
 import app.subscription.model.Subscription;
 import app.subscription.service.SubscriptionService;
 import app.user.model.User;
@@ -15,6 +16,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +30,7 @@ import java.util.UUID;
 
 @Slf4j
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -43,21 +47,6 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
         this.subscriptionService = subscriptionService;
         this.walletService = walletService;
-    }
-
-    public User login(LoginRequest loginRequest) {
-
-        Optional<User> optionUser = userRepository.findByUsername(loginRequest.getUsername());
-        if (optionUser.isEmpty()) {
-            throw new DomainException("Username or password are incorrect.");
-        }
-
-        User user = optionUser.get();
-        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
-            throw new DomainException("Username or password are incorrect.");
-        }
-
-        return user;
     }
 
     @CacheEvict(value = "users", allEntries = true)
@@ -151,5 +140,15 @@ public class UserService {
         }
 
         userRepository.save(user);
+    }
+
+    // Всеки пък, когато потребител се логва, Spring Security ще извиква този метод
+    // за да вземе детайлите на потребителя с този username
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new DomainException("User with this username does not exist."));
+
+        return new AuthenticationMetadata(user.getId(), username, user.getPassword(), user.getRole(), user.isActive());
     }
 }
