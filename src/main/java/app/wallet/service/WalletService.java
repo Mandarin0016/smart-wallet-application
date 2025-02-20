@@ -1,8 +1,8 @@
 package app.wallet.service;
 
-import app.email.service.EmailService;
 import app.exception.DomainException;
-import app.tracking.service.TrackingService;
+import app.subscription.model.Subscription;
+import app.subscription.model.SubscriptionType;
 import app.transaction.model.Transaction;
 import app.transaction.model.TransactionStatus;
 import app.transaction.model.TransactionType;
@@ -21,9 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Currency;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -45,7 +43,41 @@ public class WalletService {
         this.eventPublisher = eventPublisher;
     }
 
-    public Wallet createNewWallet(User user) {
+    public void unlockNewWallet(User user) {
+
+        List<Wallet> allUserWallets = walletRepository.findAllByOwnerUsername(user.getUsername());
+        Subscription activeSubscription = user.getSubscriptions().get(0);
+
+        // Pesho
+        // Subs: Premium
+        // Wallets: 2
+
+        boolean isDefaultPlanAndMaxWalletsUnlocked = activeSubscription.getType() == SubscriptionType.DEFAULT && allUserWallets.size() == 1;
+        boolean isPremiumPlanAndMaxWalletsUnlocked = activeSubscription.getType() == SubscriptionType.PREMIUM && allUserWallets.size() == 2;
+        boolean isUltimatePlanAndMaxWalletsUnlocked = activeSubscription.getType() == SubscriptionType.ULTIMATE && allUserWallets.size() == 3;
+
+        if (isDefaultPlanAndMaxWalletsUnlocked || isPremiumPlanAndMaxWalletsUnlocked || isUltimatePlanAndMaxWalletsUnlocked) {
+            throw new DomainException("Max wallet count reached for user with id [%s] and subscription type [%s]".formatted(user.getId(), activeSubscription.getType()));
+        }
+
+        Wallet newWallet = Wallet.builder()
+                .owner(user)
+                .status(WalletStatus.ACTIVE)
+                .balance(new BigDecimal(0))
+                .currency(Currency.getInstance("EUR"))
+                .createdOn(LocalDateTime.now())
+                .updatedOn(LocalDateTime.now())
+                .build();
+
+        walletRepository.save(newWallet);
+    }
+
+    public Wallet initilizeFirstWallet(User user) {
+
+        List<Wallet> allUserWallets = walletRepository.findAllByOwnerUsername(user.getUsername());
+        if (!allUserWallets.isEmpty()) {
+            throw new DomainException("User with id [%s] already has wallets. First wallet can't be initialized.".formatted(user.getId()));
+        }
 
         Wallet wallet = walletRepository.save(initializeWallet(user));
         log.info("Successfully create new wallet with id [%s] and balance [%.2f].".formatted(wallet.getId(), wallet.getBalance()));
@@ -216,5 +248,34 @@ public class WalletService {
                 .createdOn(LocalDateTime.now())
                 .updatedOn(LocalDateTime.now())
                 .build();
+    }
+
+    public Map<UUID, List<Transaction>> getLastFourTransactions(List<Wallet> wallets) {
+
+        Map<UUID, List<Transaction>> transactionsByWalletId = new LinkedHashMap<>();
+
+        for (Wallet wallet : wallets) {
+
+            List<Transaction> lastFourTransactions = transactionService.getLastFourTransactionsByWallet(wallet);
+            transactionsByWalletId.put(wallet.getId(), lastFourTransactions);
+        }
+
+        return transactionsByWalletId;
+    }
+
+    public void switchStatus(UUID walletId, UUID ownerId) {
+
+        Optional<Wallet> optionalWallet = walletRepository.findByIdAndOwnerId(walletId, ownerId);
+        if (optionalWallet.isEmpty()){
+            throw new DomainException("Wallet with id [%s] does not belong to user with id [%s]".formatted(walletId, ownerId));
+        }
+
+        Wallet wallet = optionalWallet.get();
+        if (wallet.getStatus() == WalletStatus.ACTIVE){
+            wallet.setStatus(WalletStatus.INACTIVE);
+        } else {
+            wallet.setStatus(WalletStatus.ACTIVE);
+        }
+        walletRepository.save(wallet);
     }
 }

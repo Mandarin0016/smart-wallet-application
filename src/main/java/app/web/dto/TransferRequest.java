@@ -11,7 +11,6 @@ import java.util.UUID;
 
 @Data
 @Builder
-@WalletOwner
 public class TransferRequest {
 
     @NotNull

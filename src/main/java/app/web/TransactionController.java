@@ -1,11 +1,13 @@
 package app.web;
 
+import app.security.AuthenticationMetadata;
 import app.transaction.model.Transaction;
 import app.transaction.service.TransactionService;
 import app.user.model.User;
 import app.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,11 +33,10 @@ public class TransactionController {
     }
 
     @GetMapping
-    public ModelAndView getAllTransactions(HttpSession session) {
+    public ModelAndView getAllTransactions(@AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
 
-        UUID userId = (UUID) session.getAttribute("user_id");
-        User user = userService.getById(userId);
-        List<Transaction> transactions = transactionService.getAllByOwnerId(userId);
+        User user = userService.getById(authenticationMetadata.getUserId());
+        List<Transaction> transactions = transactionService.getAllByOwnerId(authenticationMetadata.getUserId());
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("transactions");
@@ -46,13 +47,16 @@ public class TransactionController {
     }
 
     @GetMapping("/{id}")
-    public ModelAndView getTransactionById(@PathVariable UUID id) {
+    public ModelAndView getTransactionById(@PathVariable UUID id, @AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
+
+        User user = userService.getById(authenticationMetadata.getUserId());
 
         Transaction transaction = transactionService.getById(id);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("transaction-result");
         modelAndView.addObject("transaction", transaction);
+        modelAndView.addObject("user", user);
 
         return modelAndView;
     }

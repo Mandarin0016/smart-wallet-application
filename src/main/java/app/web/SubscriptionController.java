@@ -1,5 +1,6 @@
 package app.web;
 
+import app.security.AuthenticationMetadata;
 import app.subscription.model.SubscriptionType;
 import app.subscription.service.SubscriptionService;
 import app.transaction.model.Transaction;
@@ -8,6 +9,7 @@ import app.user.service.UserService;
 import app.web.dto.UpgradeRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,10 +33,9 @@ public class SubscriptionController {
     }
 
     @GetMapping
-    public ModelAndView getUpgradePage(HttpSession session) {
+    public ModelAndView getUpgradePage(@AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
 
-        UUID userId = (UUID) session.getAttribute("user_id");
-        User user = userService.getById(userId);
+        User user = userService.getById(authenticationMetadata.getUserId());
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("upgrade");
@@ -45,10 +46,9 @@ public class SubscriptionController {
     }
 
     @PostMapping
-    public String upgrade(@RequestParam("subscription-type")SubscriptionType subscriptionType, UpgradeRequest upgradeRequest, HttpSession session) {
+    public String upgrade(@RequestParam("subscription-type")SubscriptionType subscriptionType, UpgradeRequest upgradeRequest, @AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
 
-        UUID userId = (UUID) session.getAttribute("user_id");
-        User user = userService.getById(userId);
+        User user = userService.getById(authenticationMetadata.getUserId());
 
         Transaction upgradeResult = subscriptionService.upgrade(user, subscriptionType, upgradeRequest);
 
@@ -56,10 +56,9 @@ public class SubscriptionController {
     }
 
     @GetMapping("/history")
-    public ModelAndView getUserSubscriptions(HttpSession session) {
+    public ModelAndView getUserSubscriptions(@AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
 
-        UUID userId = (UUID) session.getAttribute("user_id");
-        User user = userService.getById(userId);
+        User user = userService.getById(authenticationMetadata.getUserId());
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("subscription-history");

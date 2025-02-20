@@ -9,7 +9,6 @@ import app.user.model.UserRole;
 import app.user.repository.UserRepository;
 import app.wallet.model.Wallet;
 import app.wallet.service.WalletService;
-import app.web.dto.LoginRequest;
 import app.web.dto.RegisterRequest;
 import app.web.dto.UserEditRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -63,7 +62,7 @@ public class UserService implements UserDetailsService {
         Subscription defaultSubscription = subscriptionService.createDefaultSubscription(user);
         user.setSubscriptions(List.of(defaultSubscription));
 
-        Wallet standardWallet = walletService.createNewWallet(user);
+        Wallet standardWallet = walletService.initilizeFirstWallet(user);
         user.setWallets(List.of(standardWallet));
 
         log.info("Successfully create new user account for username [%s] and id [%s]".formatted(user.getUsername(), user.getId()));

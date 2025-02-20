@@ -29,8 +29,12 @@ public class UserController {
         this.userService = userService;
     }
 
+    // hasAnyRole - проверяваме за една от следните роли
+    // hasRole - проверяваме за една конкретна роля
+    // hasAuthority - проверяваме за един permission
+    // hasAnyAuthority - проверяваме за един от следните permissions
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ModelAndView getAllUsers(@AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
 
         List<User> users = userService.getAllUsers();
