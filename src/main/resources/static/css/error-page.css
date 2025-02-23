@@ -1,0 +1,21 @@
+body main {
+    height: 100vh;
+}
+
+.home-section {
+    height: 70%;
+    min-height: 550px;
+    max-height: 800px;
+}
+
+.payment-box.not-found .payment-header .icon {
+    background-color: rgba(255, 223, 71, 0.8);
+    border: 1px solid rgba(255, 200, 50, 0.8);
+    box-shadow: 0 4px 8px rgba(255, 215, 0, 0.4);
+}
+
+.payment-box.internal-server-error .payment-header .icon {
+    background-color: #ff6767;
+    border: 1px solid rgba(255, 84, 84, 0.8);
+    box-shadow: 0 4px 8px rgba(255, 103, 103, 0.4);
+}

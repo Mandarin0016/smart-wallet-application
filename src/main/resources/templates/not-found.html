@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/common.css">
+  <link rel="stylesheet" type="text/css" href="/css/nav-side-bar.css">
+  <link rel="stylesheet" type="text/css" href="/css/home-common.css">
+  <link rel="stylesheet" type="text/css" href="/css/home.css">
+  <link rel="stylesheet" type="text/css" href="/css/profile-menu.css">
+  <link rel="stylesheet" type="text/css" href="/css/upgrade-result-menu.css">
+  <link rel="stylesheet" type="text/css" href="/css/error-page.css">
+  <title>Home</title>
+  <style>
+  </style>
+</head>
+<body>
+<main>
+  <div class="home-section">
+    <div class="single-section-box payment-result-container">
+      <div class="payment-box not-found">
+        <div class="payment-header">
+          <div class="icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 20h.01M12 16c0-3 4-3 4-6s-2-5-4-5-4 2-4 3"
+                    stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h2>Oops! We couldn't find that.</h2>
+          <p>If you need any further assistance with your query, please don't hesitate to reach out to our support team. We're here to help!</p>
+        </div>
+      </div>
+
+      <div class="details-section">
+        <div class="details-section-container">
+          <strong>Error code: </strong>
+          <p>404 Not Found</p>
+        </div>
+      </div>
+
+      <a th:href="@{/home}" class="profile-actions-button">
+        <p>Go back</p>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 7H14C17.3137 7 20 9.68629 20 13C20 16.3137 17.3137 19 14 19H4M4 7L8 3M4 7L8 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</main>
+<div class="footer"><p>© 2025 Smart Wallet. All rights reserved.</p></div>
+</body>
+</html>
