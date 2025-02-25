@@ -10,9 +10,10 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/nav-side-bar.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/home-common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/upgrade-result-menu.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/notifications.css}">
     <title>Home</title>
-    <style>
-    </style>
 </head>
 <body>
 <nav>
@@ -29,7 +30,7 @@
                         <div class="smart-wallet-nav-bar-version">v1.0.0</div>
                     </div>
                     <div class="func-block">
-                        <a href="/home" class="active">
+                        <a href="/home">
                             <p>Dashboard</p>
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                  xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
@@ -94,7 +95,7 @@
                                       d="M12 6h.01M12 12h.01M12 18h.01"></path>
                             </svg>
                         </a>
-                        <a href="/notifications">
+                        <a href="/notifications" class="active">
                             <p>Notifications</p>
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                  xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
@@ -143,8 +144,162 @@
     </div>
 
     <div class="home-section">
+        <div class="notification-preferences-box">
+            <h2>Notification Dashboard</h2>
+            <p>Current preferences:</p>
 
+            <div class="details-section">
+                <div class="details-section-container">
+                    <strong>Notification type: </strong>
+                    <p>Email</p>
+                </div>
+            </div>
 
+            <div class="details-section">
+                <div class="details-section-container">
+                    <strong>Source: </strong>
+                    <p>vik.aleksandrov@gmail.com</p>
+                </div>
+            </div>
+
+            <div class="details-section">
+                <div class="details-section-container">
+                    <strong>Non-failed notifications: </strong>
+                    <p>16</p>
+                </div>
+            </div>
+
+            <div class="details-section">
+                <div class="details-section-container">
+                    <strong>Failed notifications: </strong>
+                    <p>2</p>
+                </div>
+            </div>
+
+            <div class="details-section">
+                <div class="details-section-container">
+                    <strong>Notification state: </strong>
+                    <p class="enabled-notification-status">ENABLED</p>
+                    <p class="disabled-notification-status">DISABLED</p>
+                </div>
+            </div>
+
+            <p>Change State:</p>
+            <div class="allowed-notification-actions">
+                <button class="profile-actions-button disable-notifications">
+                    <p>Disable Notifications</p>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                              stroke-linejoin="round"></path>
+                    </svg>
+                </button>
+                <button class="profile-actions-button enable-notifications">
+                    <p>Enable Notifications</p>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                              stroke-linejoin="round"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <p>General Actions:</p>
+            <div class="allowed-notification-actions">
+                <button class="profile-actions-button">
+                    <p>Clear History</p>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13 17V11C13 10.7348 13.1054 10.4804 13.2929 10.2929C13.4804 10.1054 13.7348 10 14 10C14.2652 10 14.5196 10.1054 14.7071 10.2929C14.8946 10.4804 15 10.7348 15 11V17C15 17.2652 14.8946 17.5196 14.7071 17.7071C14.5196 17.8946 14.2652 18 14 18C13.7348 18 13.4804 17.8946 13.2929 17.7071C13.1054 17.5196 13 17.2652 13 17ZM10 18C10.2652 18 10.5196 17.8946 10.7071 17.7071C10.8946 17.5196 11 17.2652 11 17V11C11 10.7348 10.8946 10.4804 10.7071 10.2929C10.5196 10.1054 10.2652 10 10 10C9.73478 10 9.48043 10.1054 9.29289 10.2929C9.10536 10.4804 9 10.7348 9 11V17C9 17.2652 9.10536 17.5196 9.29289 17.7071C9.48043 17.8946 9.73478 18 10 18ZM21 7C21 7.26522 20.8946 7.51957 20.7071 7.70711C20.5196 7.89464 20.2652 8 20 8H19V18.94C19 19.7356 18.6839 20.4987 18.1213 21.0613C17.5587 21.6239 16.7956 21.94 16 21.94H8C7.20435 21.94 6.44129 21.6239 5.87868 21.0613C5.31607 20.4987 5 19.7356 5 18.94V8H4C3.73478 8 3.48043 7.89464 3.29289 7.70711C3.10536 7.51957 3 7.26522 3 7C3 6.73478 3.10536 6.48043 3.29289 6.29289C3.48043 6.10536 3.73478 6 4 6H8V5C8 4.20435 8.31607 3.44129 8.87868 2.87868C9.44129 2.31607 10.2044 2 11 2H13C13.7956 2 14.5587 2.31607 15.1213 2.87868C15.6839 3.44129 16 4.20435 16 5V6H20C20.2652 6 20.5196 6.10536 20.7071 6.29289C20.8946 6.48043 21 6.73478 21 7ZM10 6H14V5C14 4.73478 13.8946 4.48043 13.7071 4.29289C13.5196 4.10536 13.2652 4 13 4H11C10.7348 4 10.4804 4.10536 10.2929 4.29289C10.1054 4.48043 10 4.73478 10 5V6ZM17 8H7V18.94C7 19.2052 7.10536 19.4596 7.29289 19.6471C7.48043 19.8346 7.73478 19.94 8 19.94H16C16.2652 19.94 16.5196 19.8346 16.7071 19.6471C16.8946 19.4596 17 19.2052 17 18.94V8Z"
+                              fill="currentColor"/>
+                    </svg>
+                </button>
+                <button class="profile-actions-button">
+                    <p>Retry Failed</p>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5.12 13.89C5.04029 13.8996 4.95971 13.8996 4.88 13.89H4.75L4.6 13.81L4.49 13.75L2.05 11.75C1.85772 11.5975 1.73389 11.3749 1.70576 11.1311C1.67763 10.8873 1.7475 10.6423 1.9 10.45C2.0525 10.2577 2.27514 10.1339 2.51894 10.1058C2.76273 10.0776 3.00772 10.1475 3.2 10.3L3.97 10.93C4.17695 9.35475 4.8426 7.87513 5.8841 6.67531C6.92559 5.4755 8.29695 4.60847 9.82747 4.18213C11.358 3.7558 12.9801 3.789 14.4919 4.27759C16.0037 4.76618 17.3385 5.68859 18.33 6.93001C18.4131 7.0323 18.4751 7.14999 18.5125 7.27633C18.55 7.40267 18.5621 7.53516 18.5481 7.66619C18.5342 7.79722 18.4945 7.9242 18.4313 8.03984C18.3681 8.15547 18.2827 8.25748 18.18 8.34001C18.0771 8.42252 17.9589 8.48385 17.8322 8.52048C17.7055 8.55711 17.5728 8.56832 17.4417 8.55344C17.3106 8.53857 17.1838 8.49792 17.0685 8.43383C16.9533 8.36974 16.8518 8.28348 16.77 8.18001C16.0246 7.26112 15.028 6.57887 13.9016 6.21636C12.7753 5.85386 11.5679 5.82675 10.4264 6.13835C9.28492 6.44995 8.25872 7.0868 7.4728 7.97131C6.68688 8.85582 6.17516 9.94981 6 11.12L7 10.31C7.1862 10.2096 7.40183 10.1779 7.60904 10.2206C7.81625 10.2633 8.00178 10.3777 8.13307 10.5436C8.26436 10.7095 8.333 10.9163 8.32696 11.1278C8.32091 11.3393 8.24056 11.5419 8.1 11.7L5.66 13.7C5.60547 13.7339 5.54867 13.7639 5.49 13.79C5.39344 13.8305 5.29289 13.8606 5.19 13.88L5.12 13.89ZM22 12.3L19.56 10.3C19.5021 10.266 19.4419 10.236 19.38 10.21L19.08 10.12H19C18.9203 10.1104 18.8397 10.1104 18.76 10.12H18.62L18.48 10.2L18.37 10.26L15.93 12.26C15.7457 12.4125 15.6295 12.632 15.607 12.8702C15.5845 13.1083 15.6575 13.3457 15.81 13.53C15.9625 13.7143 16.182 13.8305 16.4201 13.853C16.6583 13.8755 16.8957 13.8025 17.08 13.65L18.08 12.84C17.9212 14.0295 17.4157 15.1459 16.6264 16.05C15.8371 16.954 14.7991 17.6055 13.6419 17.9234C12.4847 18.2412 11.2595 18.2112 10.1193 17.8372C8.97897 17.4631 7.97409 16.7615 7.23 15.82C7.1482 15.7165 7.04674 15.6303 6.93146 15.5662C6.81618 15.5021 6.68936 15.4614 6.5583 15.4466C6.42724 15.4317 6.29454 15.4429 6.16783 15.4795C6.04112 15.5162 5.92291 15.5775 5.82 15.66C5.71728 15.7425 5.63187 15.8445 5.5687 15.9602C5.50552 16.0758 5.46583 16.2028 5.45189 16.3338C5.43795 16.4649 5.45004 16.5973 5.48747 16.7237C5.5249 16.85 5.58694 16.9677 5.67 17.07C6.66154 18.3114 7.99628 19.2338 9.50808 19.7224C11.0199 20.211 12.642 20.2442 14.1725 19.8179C15.7031 19.3915 17.0744 18.5245 18.1159 17.3247C19.1574 16.1249 19.8231 14.6453 20.03 13.07L20.81 13.71C20.997 13.8678 21.239 13.9449 21.4828 13.9242C21.7266 13.9036 21.9522 13.787 22.11 13.6C22.2678 13.413 22.3449 13.171 22.3242 12.9272C22.3036 12.6834 22.187 12.4578 22 12.3Z"
+                              fill="currentColor"/>
+                    </svg>
+                </button>
+            </div>
+
+            <p class="small-informative-text-bottom">Any action that you take will affect the notification mechanism for your account!</p>
+        </div>
+
+        <div class="notification-history-box">
+            <h2>Notification History</h2>
+            <p>Last 5 records:</p>
+
+            <table class="styled-table">
+                <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Type</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Renewal for plan</td>
+                    <td>12 Jan 2024</td>
+                    <td><span class="status succeeded">Succeeded</span></td>
+                    <td>
+                        <div class="default-label-box"><p>Email</p></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Unpaid taxes</td>
+                    <td>16 Feb 2024</td>
+                    <td><span class="status failed">Failed</span></td>
+                    <td>
+                        <div class="default-label-box"><p>Email</p></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Purchased product</td>
+                    <td>12 Jan 2024</td>
+                    <td><span class="status succeeded">Succeeded</span></td>
+                    <td>
+                        <div class="default-label-box"><p>Email</p></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Money Transfer</td>
+                    <td>18 Jan 2024</td>
+                    <td><span class="status succeeded">Succeeded</span></td>
+                    <td>
+                        <div class="default-label-box"><p>Email</p></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Money Transfer</td>
+                    <td>11 Jan 2024</td>
+                    <td><span class="status succeeded">Succeeded</span></td>
+                    <td>
+                        <div class="default-label-box"><p>Email</p></div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+<!--            THIS TABLE WILL BE DISPLAYED WHEN THERE ARE NO NOTIFICATIONS-->
+<!--            <table class="styled-table">-->
+<!--                <thead>-->
+<!--                <tr>-->
+<!--                    <th>Subject</th>-->
+<!--                    <th>Date</th>-->
+<!--                    <th>Status</th>-->
+<!--                    <th>Type</th>-->
+<!--                </tr>-->
+<!--                </thead>-->
+<!--                <tbody>-->
+<!--                <tr>-->
+<!--                    <td>-</td>-->
+<!--                    <td>-</td>-->
+<!--                    <td>-</td>-->
+<!--                    <td>-</td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
+<!--            </table>-->
+            <p class="small-informative-text-bottom">Every record in this table is equal to 1 notification of a certain type.</p>
+        </div>
     </div>
 </main>
 <div class="footer" th:insert="~{fragments/footer :: footer}"></div>
