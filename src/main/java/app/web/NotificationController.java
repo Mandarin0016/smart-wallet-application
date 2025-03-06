@@ -1,5 +1,6 @@
 package app.web;
 
+import app.notification.service.NotificationService;
 import app.security.AuthenticationMetadata;
 import app.user.model.User;
 import app.user.service.UserService;
@@ -14,11 +15,14 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/notifications")
 public class NotificationController {
 
-    public final UserService userService;
+    private final UserService userService;
+    private final NotificationService notificationService;
 
     @Autowired
-    public NotificationController(UserService userService) {
+    public NotificationController(UserService userService, NotificationService notificationService) {
+
         this.userService = userService;
+        this.notificationService = notificationService;
     }
 
     @GetMapping

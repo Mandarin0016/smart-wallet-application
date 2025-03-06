@@ -1,4 +1,4 @@
-package app.email.client;
+package app.notification.client;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;

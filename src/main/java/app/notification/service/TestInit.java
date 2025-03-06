@@ -1,10 +1,9 @@
-package app.email.service;
+package app.notification.service;
 
-import app.email.client.NotificationClient;
+import app.notification.client.NotificationClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 @Component
