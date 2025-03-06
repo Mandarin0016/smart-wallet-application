@@ -1,6 +1,7 @@
 package app.wallet.service;
 
 import app.exception.DomainException;
+import app.notification.service.NotificationService;
 import app.subscription.model.Subscription;
 import app.subscription.model.SubscriptionType;
 import app.transaction.model.Transaction;

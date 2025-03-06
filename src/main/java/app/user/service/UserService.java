@@ -1,6 +1,7 @@
 package app.user.service;
 
 import app.exception.DomainException;
+import app.notification.service.NotificationService;
 import app.security.AuthenticationMetadata;
 import app.subscription.model.Subscription;
 import app.subscription.service.SubscriptionService;
@@ -35,17 +36,20 @@ public class UserService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
     private final SubscriptionService subscriptionService;
     private final WalletService walletService;
+    private final NotificationService notificationService;
 
     @Autowired
     public UserService(UserRepository userRepository,
                        PasswordEncoder passwordEncoder,
                        SubscriptionService subscriptionService,
-                       WalletService walletService) {
+                       WalletService walletService,
+                       NotificationService notificationService) {
 
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.subscriptionService = subscriptionService;
         this.walletService = walletService;
+        this.notificationService = notificationService;
     }
 
     @CacheEvict(value = "users", allEntries = true)
@@ -65,6 +69,9 @@ public class UserService implements UserDetailsService {
         Wallet standardWallet = walletService.initilizeFirstWallet(user);
         user.setWallets(List.of(standardWallet));
 
+        // Persist new notification preference with isEnabled = false
+        notificationService.saveNotificationPreference(user.getId(), false, null);
+
         log.info("Successfully create new user account for username [%s] and id [%s]".formatted(user.getUsername(), user.getId()));
 
         return user;
@@ -75,10 +82,18 @@ public class UserService implements UserDetailsService {
 
         User user = getById(userId);
 
+        if (userEditRequest.getEmail().isBlank()) {
+            notificationService.saveNotificationPreference(userId, false, null);
+        }
+
         user.setFirstName(userEditRequest.getFirstName());
         user.setLastName(userEditRequest.getLastName());
         user.setEmail(userEditRequest.getEmail());
         user.setProfilePicture(userEditRequest.getProfilePicture());
+
+        if (!userEditRequest.getEmail().isBlank()) {
+            notificationService.saveNotificationPreference(userId, true, userEditRequest.getEmail());
+        }
 
         userRepository.save(user);
     }

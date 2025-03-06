@@ -151,41 +151,42 @@
             <div class="details-section">
                 <div class="details-section-container">
                     <strong>Notification type: </strong>
-                    <p>Email</p>
+                    <p th:text="${notificationPreference.type}"></p>
                 </div>
             </div>
 
             <div class="details-section">
                 <div class="details-section-container">
                     <strong>Source: </strong>
-                    <p>vik.aleksandrov@gmail.com</p>
+                    <p th:text="${#strings.isEmpty(notificationPreference.contactInfo) ? 'Edit profile and add email' : notificationPreference.contactInfo}"></p>
                 </div>
             </div>
 
             <div class="details-section">
                 <div class="details-section-container">
                     <strong>Non-failed notifications: </strong>
-                    <p>16</p>
+                    <p th:text="${succeededNotificationsNumber}"></p>
                 </div>
             </div>
 
             <div class="details-section">
                 <div class="details-section-container">
                     <strong>Failed notifications: </strong>
-                    <p>2</p>
+                    <p th:text="${failedNotificationsNumber}"></p>
                 </div>
             </div>
 
             <div class="details-section">
                 <div class="details-section-container">
                     <strong>Notification state: </strong>
-                    <p class="enabled-notification-status">ENABLED</p>
-                    <p class="disabled-notification-status">DISABLED</p>
+                    <p class="enabled-notification-status" th:if="${notificationPreference.enabled}">ENABLED</p>
+                    <p class="disabled-notification-status" th:unless="${notificationPreference.enabled}">DISABLED</p>
                 </div>
             </div>
 
             <p>Change State:</p>
             <div class="allowed-notification-actions">
+               <form th:action="@{'/notifications/user-preference?enabled=false'}" th:method="PUT" th:if="${notificationPreference.enabled}">
                 <button class="profile-actions-button disable-notifications">
                     <p>Disable Notifications</p>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -193,6 +194,8 @@
                               stroke-linejoin="round"></path>
                     </svg>
                 </button>
+                </form>
+                <form th:action="@{'/notifications/user-preference?enabled=true'}" th:method="PUT" th:unless="${notificationPreference.enabled}">
                 <button class="profile-actions-button enable-notifications">
                     <p>Enable Notifications</p>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -200,6 +203,7 @@
                               stroke-linejoin="round"></path>
                     </svg>
                 </button>
+                </form>
             </div>
 
             <p>General Actions:</p>
@@ -227,7 +231,29 @@
             <h2>Notification History</h2>
             <p>Your last 5 notifications from us:</p>
 
-            <table class="styled-table">
+            <table class="styled-table" th:unless="${#lists.isEmpty(notificationHistory)}">
+                <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Type</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="notification : ${notificationHistory}">
+                    <td th:text="${notification.subject}"></td>
+                    <td th:text="${#temporals.format(notification.createdOn, 'dd MMM YYYY')}"></td>
+                    <td th:if="${notification.status == 'SUCCEEDED'}"><span class="status succeeded">Succeeded</span></td>
+                    <td th:if="${notification.status == 'FAILED'}"><span class="status failed">Failed</span></td>
+                    <td>
+                        <div class="default-label-box"><p th:text="${notification.type}">Email</p></div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+<!--            THIS TABLE WILL BE DISPLAYED WHEN THERE ARE NO NOTIFICATIONS-->
+            <table class="styled-table" th:if="${#lists.isEmpty(notificationHistory)}">
                 <thead>
                 <tr>
                     <th>Subject</th>
@@ -238,66 +264,13 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td>Renewal for plan</td>
-                    <td>12 Jan 2024</td>
-                    <td><span class="status succeeded">Succeeded</span></td>
-                    <td>
-                        <div class="default-label-box"><p>Email</p></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Unpaid taxes</td>
-                    <td>16 Feb 2024</td>
-                    <td><span class="status failed">Failed</span></td>
-                    <td>
-                        <div class="default-label-box"><p>Email</p></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Purchased product</td>
-                    <td>12 Jan 2024</td>
-                    <td><span class="status succeeded">Succeeded</span></td>
-                    <td>
-                        <div class="default-label-box"><p>Email</p></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Money Transfer</td>
-                    <td>18 Jan 2024</td>
-                    <td><span class="status succeeded">Succeeded</span></td>
-                    <td>
-                        <div class="default-label-box"><p>Email</p></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Money Transfer</td>
-                    <td>11 Jan 2024</td>
-                    <td><span class="status succeeded">Succeeded</span></td>
-                    <td>
-                        <div class="default-label-box"><p>Email</p></div>
-                    </td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
                 </tr>
                 </tbody>
             </table>
-<!--            THIS TABLE WILL BE DISPLAYED WHEN THERE ARE NO NOTIFICATIONS-->
-<!--            <table class="styled-table">-->
-<!--                <thead>-->
-<!--                <tr>-->
-<!--                    <th>Subject</th>-->
-<!--                    <th>Date</th>-->
-<!--                    <th>Status</th>-->
-<!--                    <th>Type</th>-->
-<!--                </tr>-->
-<!--                </thead>-->
-<!--                <tbody>-->
-<!--                <tr>-->
-<!--                    <td>-</td>-->
-<!--                    <td>-</td>-->
-<!--                    <td>-</td>-->
-<!--                    <td>-</td>-->
-<!--                </tr>-->
-<!--                </tbody>-->
-<!--            </table>-->
             <p class="small-informative-text-bottom">Every record in this table is equal to 1 notification of a certain type.</p>
         </div>
     </div>
