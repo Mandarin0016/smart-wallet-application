@@ -2,7 +2,6 @@ package app.web;
 
 import app.security.AuthenticationMetadata;
 import app.user.model.User;
-import app.user.model.UserRole;
 import app.user.service.UserService;
 import app.web.dto.UserEditRequest;
 import app.web.mapper.DtoMapper;
