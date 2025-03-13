@@ -32,4 +32,10 @@ public interface NotificationClient {
 
     @PutMapping("/preferences")
     ResponseEntity<Void> updateNotificationPreference(@RequestParam("userId") UUID userId, @RequestParam("enabled") boolean enabled);
+
+    @DeleteMapping
+    ResponseEntity<Void> clearHistory(@RequestParam(name = "userId") UUID userId);
+
+    @PutMapping
+    ResponseEntity<Void> retryFailedNotifications(@RequestParam(name = "userId") UUID userId);
 }
