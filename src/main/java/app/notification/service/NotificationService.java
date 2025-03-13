@@ -34,9 +34,13 @@ public class NotificationService {
                 .build();
 
         // Invoke Feign client and execute HTTP Post Request.
-        ResponseEntity<Void> httpResponse = notificationClient.upsertNotificationPreference(notificationPreference);
-        if (!httpResponse.getStatusCode().is2xxSuccessful()) {
-            log.error("[Feign call to notification-svc failed] Can't save user preference for user with id = [%s]".formatted(userId));
+        try {
+            ResponseEntity<Void> httpResponse = notificationClient.upsertNotificationPreference(notificationPreference);
+            if (!httpResponse.getStatusCode().is2xxSuccessful()) {
+                log.error("[Feign call to notification-svc failed] Can't save user preference for user with id = [%s]".formatted(userId));
+            }
+        } catch (Exception e) {
+            log.error("Unable to call notification-svc.");
         }
     }
 
