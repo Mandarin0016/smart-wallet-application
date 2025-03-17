@@ -1,4 +1,4 @@
-package app;
+package app.user;
 
 import app.notification.service.NotificationService;
 import app.subscription.service.SubscriptionService;
