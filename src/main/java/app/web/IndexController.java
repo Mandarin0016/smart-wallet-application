@@ -25,6 +25,8 @@ public class IndexController {
         this.userService = userService;
     }
 
+    // GET /
+    // Result - view name index
     @GetMapping("/")
     public String getIndexPage() {
 
@@ -55,6 +57,11 @@ public class IndexController {
         return modelAndView;
     }
 
+    // POST with correct form data
+    // Expect:
+    // status - 200 OK
+    // called .register method of userService
+    // redirect to /login
     @PostMapping("/register")
     public ModelAndView registerNewUser(@Valid RegisterRequest registerRequest, BindingResult bindingResult) {
 

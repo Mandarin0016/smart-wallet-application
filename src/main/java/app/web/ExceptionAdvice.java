@@ -57,7 +57,7 @@ public class ExceptionAdvice {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler({
-            AccessDeniedException.class, // Когато се опотва да достъпи ендпойнт, до който не му е позволено/нямам достъп
+            AccessDeniedException.class, // Когато се опитва да достъпи ендпойнт, до който не му е позволено/нямам достъп
             NoResourceFoundException.class, // Когато се опитва да достъпи невалиден ендпойнт
             MethodArgumentTypeMismatchException.class,
             MissingRequestValueException.class

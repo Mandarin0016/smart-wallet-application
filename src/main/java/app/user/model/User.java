@@ -16,6 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+// ВАЖНО: 'user' key word in H2
 @Table(name = "users")
 public class User {
 
