@@ -10,7 +10,7 @@
     </parent>
     <groupId>smart-wallet</groupId>
     <artifactId>smart-wallet-application</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>Smart Wallet Application</name>
     <description>Smart Wallet Application</description>
     <url/>
