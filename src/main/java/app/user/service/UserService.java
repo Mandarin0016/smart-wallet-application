@@ -1,5 +1,6 @@
 package app.user.service;
 
+import app.aspect.VeryImportant;
 import app.exception.DomainException;
 import app.exception.UsernameAlreadyExistException;
 import app.notification.service.NotificationService;
@@ -81,6 +82,7 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
+    // JoinPoint
     // Test Case: When there is no user in the database (repository returns Optional.empty()) - then expect an exception
     // of type DomainException is thrown
     @CacheEvict(value = "users", allEntries = true)
@@ -123,6 +125,7 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
+    @VeryImportant
     public User getById(UUID id) {
 
         Optional<User> user = userRepository.findById(id);

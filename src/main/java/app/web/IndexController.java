@@ -33,6 +33,7 @@ public class IndexController {
         return "index";
     }
 
+    // JoinPoint
     @GetMapping("/login")
     public ModelAndView getLoginPage(@RequestParam(value = "error", required = false) String errorParam) {
 
@@ -47,6 +48,7 @@ public class IndexController {
         return modelAndView;
     }
 
+    // JoinPoint
     @GetMapping("/register")
     public ModelAndView getRegisterPage() {
 
