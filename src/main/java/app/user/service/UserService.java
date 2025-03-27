@@ -1,6 +1,8 @@
 package app.user.service;
 
 import app.aspect.VeryImportant;
+import app.event.UserRegisteredEventProducer;
+import app.event.payload.UserRegisteredEvent;
 import app.exception.DomainException;
 import app.exception.UsernameAlreadyExistException;
 import app.notification.service.NotificationService;
@@ -39,19 +41,21 @@ public class UserService implements UserDetailsService {
     private final SubscriptionService subscriptionService;
     private final WalletService walletService;
     private final NotificationService notificationService;
+    private final UserRegisteredEventProducer userRegisteredEventProducer;
 
     @Autowired
     public UserService(UserRepository userRepository,
                        PasswordEncoder passwordEncoder,
                        SubscriptionService subscriptionService,
                        WalletService walletService,
-                       NotificationService notificationService) {
+                       NotificationService notificationService, UserRegisteredEventProducer userRegisteredEventProducer) {
 
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.subscriptionService = subscriptionService;
         this.walletService = walletService;
         this.notificationService = notificationService;
+        this.userRegisteredEventProducer = userRegisteredEventProducer;
     }
 
     // Register
@@ -75,7 +79,12 @@ public class UserService implements UserDetailsService {
         user.setWallets(List.of(standardWallet)); // Has 1 wallet
 
         // Persist new notification preference with isEnabled = false
-        notificationService.saveNotificationPreference(user.getId(), false, null);
+//        notificationService.saveNotificationPreference(user.getId(), false, null);
+        UserRegisteredEvent event = UserRegisteredEvent.builder()
+                .userId(user.getId())
+                .createdOn(user.getCreatedOn())
+                .build();
+        userRegisteredEventProducer.sendEvent(event);
 
         log.info("Successfully create new user account for username [%s] and id [%s]".formatted(user.getUsername(), user.getId()));
 
